@@ -1,2 +1,4 @@
 flask
 ipykernel
+gspread
+oauth2client
