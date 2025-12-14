@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Nestlé Water Distribution Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Define the main color variables */
+        :root {
+            --nestle-blue: #0077b6; /* Header Color */
+            --nestle-hover: #005a8a; /* Slightly darker for hover effect */
+        }
+        
+        .main-header {
+            background-color: var(--nestle-blue);
+        }
+        .hero-section {
+            background-color: #f0f8ff; 
+            padding: 4rem 0;
+            border-bottom: 5px solid var(--nestle-blue);
+        }
+        .section-card {
+            background-color: white;
+            padding: 2rem; /* Reduced padding slightly */
+            border-radius: 12px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.08); /* Better shadow */
+            transition: transform 0.3s;
+            height: 100%; 
+            display: flex;
+            flex-direction: column;
+            border-top: 5px solid transparent; /* Base border for coloring */
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Button Styling - Now uniform with Header Color */
+        .portal-link {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.6rem 1.25rem; /* Normal button size */
+            border-radius: 0.5rem; /* Slightly boxier look */
+            font-weight: 600; /* Semi-bold */
+            text-transform: none; /* No uppercase */
+            letter-spacing: normal;
+            background-color: var(--nestle-blue); /* Same as header */
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.2s;
+            margin-top: auto; 
+            width: 100%; /* Make buttons full width in the tile */
+        }
+        .portal-link:hover {
+            background-color: var(--nestle-hover); 
+        }
+
+        /* Specific border colors for visual distinction */
+        .border-dashboard { border-top-color: #0077b6; }
+        .border-inventory { border-top-color: #4CAF50; /* Green */ }
+        .border-orders { border-top-color: #FF9800; /* Orange */ }
+        .border-contact { border-top-color: #9C27B0; /* Purple */ }
+
+        .dark-footer {
+            background-color: #1f2937; 
+            color: white;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 2rem 0;
+            }
+            .portal-link {
+                 width: auto; /* Allow button to shrink on small screens if needed, although full width looks good */
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col bg-gray-50">
+
+    <header class="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+            
+            <div class="flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 h-8 text-white" viewBox="0 0 24 24">
+                    <path d="M12 2.1c-2.9 0-5.7 1.5-7.5 4.1-1.7 2.6-2.2 5.9-1.4 8.7C4.6 18.2 8.3 22 12 22s7.4-3.8 8.9-7.1c.8-2.8.3-6.1-1.4-8.7C17.7 3.6 14.9 2.1 12 2.1ZM12 19.8c-2.3-3.6-4.5-6.5-4.5-9.2C7.5 7.4 9.5 5.4 12 5.4s4.5 2 4.5 5.2c0 2.7-2.2 5.6-4.5 9.2Z"/>
+                </svg>
+                <div class="flex flex-col">
+                    <span class="text-xl font-bold text-white">Nestlé Water Distribution</span>
+                    <span class="text-xs text-gray-200">Official Portal</span>
+                </div>
+            </div>
+
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6 nav-list">
+                    <li><a href="{{ url_for('index') }}" class="text-white border-b-2 border-white font-bold transition duration-150 ease-in-out">Home</a></li>
+                    <li><a href="{{ url_for('dashboard') }}" class="text-white hover:text-gray-300 font-medium transition duration-150 ease-in-out">Dashboard</a></li>
+                    <li><a href="{{ url_for('inventory') }}" class="text-white hover:text-gray-300 font-medium transition duration-150 ease-in-out">Inventory</a></li>
+                    <li><a href="{{ url_for('orders') }}" class="text-white hover:text-gray-300 font-medium transition duration-150 ease-in-out">Orders</a></li>
+                    <li><a href="{{ url_for('contact') }}" class="text-white hover:text-gray-300 font-medium transition duration-150 ease-in-out">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="md:hidden">
+                <span class="text-white text-sm">Menu</span>
+            </div>
+
+        </div>
+    </header>
+
+    <div class="hero-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4">
+                Driving Efficient Water Distribution
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                Welcome to the central hub for managing logistics, tracking real-time performance, and streamlining bulk orders for Nestlé Pure Life products.
+            </p>
+        </div>
+    </div>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <h2 class="text-3xl font-bold text-gray-800 mb-8 border-b-2 border-gray-200 pb-2">Centralized Portal Access</h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <div class="section-card border-dashboard">
+                <div class="flex items-start mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0h6"/></svg>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Dashboard & Analytics</h3>
+                        <p class="text-sm text-gray-500">Track key metrics and P&L.</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-6 flex-grow">
+                    Access real-time data on sales value, total profit/loss, and overall financial performance. Critical for management review.
+                </p>
+                
+                <a href="{{ url_for('dashboard') }}" class="portal-link">
+                    View Dashboard
+                </a>
+            </div>
+
+            <div class="section-card border-inventory">
+                <div class="flex items-start mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-green-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10m0-10l4-2m-4 2l4 2m0 0l-4 2m4-2V9m-4 2V9m-4 2V9m4 2l4-2"/></svg>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Inventory & Stock Control</h3>
+                        <p class="text-sm text-gray-500">Monitor stock levels and reorders.</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-6 flex-grow">
+                    Detailed view of current stock for all SKUs, low stock warnings, and purchase/reorder status.
+                </p>
+                
+                <a href="{{ url_for('inventory') }}" class="portal-link">
+                    View Inventory
+                </a>
+            </div>
+            
+            <div class="section-card border-orders">
+                <div class="flex items-start mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-orange-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Product Ordering & Sales</h3>
+                        <p class="text-sm text-gray-500">For placing new customer orders.</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-6 flex-grow">
+                    Browse the product catalog and initiate quick orders using the integrated chat assistant.
+                </p>
+                
+                <a href="{{ url_for('orders') }}" class="portal-link">
+                    Place New Order
+                </a>
+            </div>
+
+            <div class="section-card border-contact">
+                <div class="flex items-start mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-purple-600 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-4 5h4a2 2 0 012 2v2a2 2 0 01-2 2H3a2 2 0 01-2-2v-2a2 2 0 012-2h4m5-4h4"/></svg>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Support & Contact</h3>
+                        <p class="text-sm text-gray-500">Get assistance and send inquiries.</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-6 flex-grow">
+                    Reach out to the support team for technical help, logistics issues, or partnership inquiries via the contact form.
+                </p>
+                
+                <a href="{{ url_for('contact') }}" class="portal-link">
+                    Contact Our Team
+                </a>
+            </div>
+            
+        </div>
+
+    </main>
+
+    <footer class="dark-footer text-center py-6 mt-auto border-t">
+        <p class="text-sm">© 2025 Nestlé Water Distribution. All Rights Reserved. Built for optimized logistics.</p>
+    </footer>
+
+</body>
+</html>

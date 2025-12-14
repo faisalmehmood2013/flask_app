@@ -70,6 +70,11 @@ except Exception as e:
 # 3. Routes
 # ====================================================================
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
 @app.route('/orders')
 def orders():
     return render_template('order.html')
@@ -237,7 +242,7 @@ def contact():
 # 4. Run the application
 # ====================================================================
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True) 
 
 
 # from flask import Flask, render_template

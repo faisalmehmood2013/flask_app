@@ -3,128 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nestlé Water Distribution - Premium Water Solutions</title>
+    <title>Place Order - Nestlé Water Distribution</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     
+    <style>
+        /* Define Main Color and Footer Style */
+        :root {
+            --nestle-blue: #0077b6; /* Header Color */
+            --dark-footer: #1f2937;
+            --primary-blue: #0077b6; /* General accent color */
+        }
+
+        .main-header {
+            background-color: var(--nestle-blue);
+        }
+        .dark-footer {
+            background-color: var(--dark-footer);
+            color: white;
+            padding: 1rem 0;
+        }
+
+        /* Product Card Styling */
+        .product-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+        .product-image {
+            width: 100%;
+            height: 220px; /* Slightly increased height for a larger image */
+            object-fit: contain; 
+            padding: 1.5rem; /* Increased padding for better clarity */
+            background-color: #f9fafb;
+        }
+        .product-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #1f2937;
+            padding: 0 1rem;
+            margin-top: 0.75rem; /* Increased margin */
+        }
+        .product-subtitle {
+            font-size: 0.875rem;
+            color: #6b7280;
+            padding: 0 1rem;
+            margin-bottom: 0.75rem;
+        }
+        .product-footer {
+            padding: 1rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--nestle-blue);
+        }
+        .product-per-unit {
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: #6b7280;
+        }
+        
+        /* Utility for Centering Content */
+        .wide-content-container {
+            max-width: 90rem;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+    </style>
+
 </head>
 
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col bg-gray-50">
 
-   <header class="main-header">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
-        <div class="flex items-center space-x-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 h-8 text-white" viewBox="0 0 24 24">
-                <path d="M12 2.1c-2.9 0-5.7 1.5-7.5 4.1-1.7 2.6-2.2 5.9-1.4 8.7C4.6 18.2 8.3 22 12 22s7.4-3.8 8.9-7.1c.8-2.8.3-6.1-1.4-8.7C17.7 3.6 14.9 2.1 12 2.1ZM12 19.8c-2.3-3.6-4.5-6.5-4.5-9.2C7.5 7.4 9.5 5.4 12 5.4s4.5 2 4.5 5.2c0 2.7-2.2 5.6-4.5 9.2Z"/>
-            </svg>
-            <div class="flex flex-col">
-                <span class="text-xl font-bold text-white">Nestlé Water Distribution</span>
-                <span class="text-xs text-gray-200">Pure & Refreshing Quality</span>
+    <header class="main-header">
+        <div class="wide-content-container py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 h-8 text-white" viewBox="0 0 24 24">
+                    <path d="M12 2.1c-2.9 0-5.7 1.5-7.5 4.1-1.7 2.6-2.2 5.9-1.4 8.7C4.6 18.2 8.3 22 12 22s7.4-3.8 8.9-7.1c.8-2.8.3-6.1-1.4-8.7C17.7 3.6 14.9 2.1 12 2.1ZM12 19.8c-2.3-3.6-4.5-6.5-4.5-9.2C7.5 7.4 9.5 5.4 12 5.4s4.5 2 4.5 5.2c0 2.7-2.2 5.6-4.5 9.2Z"/>
+                </svg>
+                <div class="flex flex-col">
+                    <span class="text-xl font-bold text-white">Nestlé Water Distribution</span>
+                    <span class="text-xs text-gray-200">Pure & Refreshing Quality</span>
+                </div>
             </div>
+
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="{{ url_for('index') }}" class="text-white hover:text-gray-300 font-medium transition duration-150 ease-in-out">Home</a></li>
+                    <li><a href="{{ url_for('dashboard') }}" class="text-white hover:text-gray-300 font-medium transition duration-150 ease-in-out">Dashboard</a></li>
+                    <li><a href="{{ url_for('inventory') }}" class="text-white hover:text-gray-300 font-medium transition duration-150 ease-in-out">Inventory</a></li>
+                    <li><a href="{{ url_for('orders') }}" class="text-white border-b-2 border-white font-bold transition duration-150 ease-in-out">Orders</a></li>
+                    <li><a href="{{ url_for('contact') }}" class="text-white hover:text-gray-300 font-medium transition duration-150 ease-in-out">Contact</a></li>
+                </ul>
+            </nav>
         </div>
+    </header>
 
-        <nav>
-            <ul class="flex space-x-6">
-                <!-- <li>
-                    <a href="{{ url_for('dashboard') }}" class="text-white hover:text-gray-300 font-medium transition duration-150 ease-in-out">Dashboard</a>
-                </li> -->
-                <li>
-                    <a href="orders" class="text-white hover:text-gray-300 font-medium transition duration-150 ease-in-out">Orders</a>
-                </li>
-                <!-- <li>
-                    <a href="{{ url_for('inventory') }}" class="text-white hover:text-gray-300 font-medium transition duration-150 ease-in-out">Inventory</a>
-                </li> -->
-                <li>
-                    <a href="contact" class="text-white hover:text-gray-300 font-medium transition duration-150 ease-in-out">Contact</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</header>
-
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div class="text-center mb-12 pt-8">
-            <h1 class="text-4xl md:text-5xl font-light text-gray-800 mb-4">Premium Water Solutions</h1>
-            <p class="text-lg text-gray-600">
+    <main class="flex-grow wide-content-container py-10">
+        <div class="text-center mb-10 pt-4">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-2">Premium Water Solutions</h1>
+            <p class="text-md text-gray-600">
                 Choose from our range of high-quality Nestlé Pure Life water products.
             </p>
         </div>
         
-        <div class="bg-blue-50 border-l-4 border-primary-blue p-4 mb-8 rounded-lg shadow-xl">
+        <div class="bg-blue-50 border-l-4 border-primary-blue p-4 mb-8 rounded-lg shadow-md">
             <div class="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-blue mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
                 <div>
                     <p class="text-sm font-bold text-gray-900">
-                        💧 Order Instructions:
+                        💧 Simple Order Process:
                     </p>
                     <p class="text-base text-gray-700 mt-1">
-                        To place an order, please click the Chat Button <span class="text-red-500 font-extrabold">(🔴)</span> located in the bottom-right corner of your screen to proceed with our Order Assistant.
+                        To place an order, please <b>Chat Button</b> <span class="text-red-600 font-extrabold">(🔴)</span> located in the bottom-right corner to proceed with our <b>Order Assistant</b>.
                     </p>
                 </div>
             </div>
         </div>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
             <div class="product-card">
-                <div class="mb-4">
+                <div class="flex-grow">
                     <div class="image-container cursor-pointer" onclick="openChat()">
                         <img src="{{ url_for('static', filename='images/500ml-bottle.jpg') }}" alt="Nestlé Pure Life 500 ml Bottle" class="product-image">
                     </div>
                     <h2 class="product-title">Nestlé Water Pure Life 500 ml</h2>
-                    <p class="product-subtitle">500 ml</p>
+                    <p class="product-subtitle">Perfect for on-the-go hydration.</p>
                 </div>
                 <div class="product-footer">
                     <p class="product-price">Rs 50<span class="product-per-unit"> per unit</span></p>
-                    <!-- <button class="buy-button" onclick="openChat()">Buy Now</button> -->
                 </div>
             </div>
 
             <div class="product-card">
-                <div class="mb-4">
+                <div class="flex-grow">
                     <div class="image-container cursor-pointer" onclick="openChat()">
                         <img src="{{ url_for('static', filename='images/1500ml-bottle.jpg') }}" alt="Nestlé Pure Life 1500 ml Bottle" class="product-image">
                     </div>
                     <h2 class="product-title">Nestlé Water Pure Life 1500 ml</h2>
-                    <p class="product-subtitle">1500 ml</p>
+                    <p class="product-subtitle">Great for meals and light activity.</p>
                 </div>
                 <div class="product-footer">
                     <p class="product-price">Rs 100<span class="product-per-unit"> per unit</span></p>
-                    <!-- <button class="buy-button" onclick="openChat()">Buy Now</button> -->
                 </div>
             </div>
 
             <div class="product-card">
-                <div class="mb-4">
+                <div class="flex-grow">
                     <div class="image-container cursor-pointer" onclick="openChat()">
                         <img src="{{ url_for('static', filename='images/5litre-jar.jpg') }}" alt="Nestlé Pure Life 5 Litre Jar" class="product-image">
                     </div>
                     <h2 class="product-title">Nestlé Water Pure Life 5 Litre</h2>
-                    <p class="product-subtitle">5 Litre</p>
+                    <p class="product-subtitle">Family size jar for home or office.</p>
                 </div>
                 <div class="product-footer">
                     <p class="product-price">Rs 200<span class="product-per-unit"> per unit</span></p>
-                    <!-- <button class="buy-button" onclick="openChat()">Buy Now</button> -->
                 </div>
             </div>
 
             <div class="product-card">
-                <div class="mb-4">
+                <div class="flex-grow">
                     <div class="image-container cursor-pointer" onclick="openChat()">
                         <img src="{{ url_for('static', filename='images/19litre-dispenser.jpg') }}" alt="Nestlé Pure Life 19 Litre Dispenser" class="product-image">
                     </div>
                     <h2 class="product-title">Nestlé Water Pure Life 19 Litre</h2>
-                    <p class="product-subtitle">19 Litre</p>
+                    <p class="product-subtitle">Bulk dispenser size for cooler use.</p>
                 </div>
                 <div class="product-footer">
                     <p class="product-price">Rs 500<span class="product-per-unit"> per unit</span></p>
-                    <!-- <button class="buy-button" onclick="openChat()">Buy Now</button> -->
                 </div>
             </div>
+            
         </div>
     </main>
 
-    <footer class="main-footer text-center">
-        <p class="text-sm">© 2025 Nestlé Water Distribution. All Rights Reserved.</p>
+    <footer class="dark-footer text-center mt-auto border-t border-gray-700">
+        <p class="text-sm">© 2025 Nestlé Water Distribution. All Rights Reserved. Pure & Refreshing Quality.</p>
     </footer>
 
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
@@ -134,7 +206,6 @@
 
         // 1. Initialize the chat widget
         createChat({
-            // webhookUrl: 'https://faisalshah.duckdns.org/webhook/9e9531cf-f80d-4c66-821c-d59c7e26ec58/chat',
             webhookUrl: 'https://faisalshah.duckdns.org/webhook/60ed0f66-b0ed-4fba-b2bf-fc34e2cbb3dd/chat',
             target: '#n8n-chat',
             mode: 'window',
@@ -146,21 +217,21 @@
             defaultLanguage: 'en',
             initialMessages: [
                 'Hi there! 👋',
-                'I am your Order Assistant. How can I help you today?'
+                'I am your Order Assistant. How can I help you place your order today?'
             ],
             i18n: {
                 en: {
                     title: 'Order Assistant 🛒',
                     subtitle: "Ask me about products, orders, and bulk requests!",
-                    footer: '',
+                    footer: 'Nestlé Distribution Service',
                     getStarted: 'New Conversation',
-                    inputPlaceholder: 'Type your question here...',
+                    inputPlaceholder: 'Type your order here...',
                 },
             },
             enableStreaming: false,
         });
 
-        // 2. JavaScript function to open chat reliably (Kept at 3000ms delay for Buy Now buttons)
+        // 2. JavaScript function to open chat reliably (Kept at 3000ms delay for click events)
         window.openChat = function() {
             setTimeout(() => {
                 const toggleButton = document.querySelector('.n8n-chat-toggle');
