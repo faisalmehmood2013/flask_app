@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Nestlé Water Distribution</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .register-card {
+            max-width: 450px;
+            margin: 50px auto;
+            padding: 2.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #0077b6; 
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+<div class="register-card">
+    <h1 class="text-2xl font-bold text-gray-800 text-center mb-6">New Customer Registration</h1>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="p-3 mb-4 text-sm rounded-lg 
+                {% if category == 'success' %} bg-green-100 text-green-800 border-l-4 border-green-500
+                {% elif category == 'danger' or category == 'warning' %} bg-red-100 text-red-800 border-l-4 border-red-500
+                {% else %} bg-blue-100 text-blue-800 border-l-4 border-blue-500 {% endif %}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('register') }}">
+        <div class="mb-4">
+            <label for="email" class="block text-sm font-medium text-gray-700">Email Address (You will log in with this)</label>
+            <input type="email" name="email" id="email" required 
+                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" 
+                   placeholder="your.email@example.com">
+        </div>
+        
+        <button type="submit" 
+                class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            Register & Log In
+        </button>
+    </form>
+    
+    <p class="mt-6 text-center text-sm text-gray-600">
+        Already have an account? 
+        <a href="{{ url_for('login') }}" class="font-medium text-blue-600 hover:text-blue-500">Log in here</a>
+    </p>
+</div>
+
+</body>
+</html>

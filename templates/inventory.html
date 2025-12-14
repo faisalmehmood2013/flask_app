@@ -87,7 +87,7 @@
                 </div>
             </div>
 
-            <nav class="hidden md:block">
+            <!-- <nav class="hidden md:block">
                 <ul class="flex space-x-6">
                     <li><a href="{{ url_for('index') }}" class="text-white hover:text-gray-300 font-medium transition duration-150 ease-in-out">Home</a></li>
                     <li><a href="{{ url_for('dashboard') }}" class="text-white hover:text-gray-300 font-medium transition duration-150 ease-in-out">Dashboard</a></li>
@@ -95,7 +95,37 @@
                     <li><a href="{{ url_for('orders') }}" class="text-white hover:text-gray-300 font-medium transition duration-150 ease-in-out">Orders</a></li>
                     <li><a href="{{ url_for('contact') }}" class="text-white hover:text-gray-300 font-medium transition duration-150 ease-in-out">Contact</a></li>
                 </ul>
-            </nav>
+            </nav> -->
+
+            <nav class="hidden md:block">
+    <ul class="flex space-x-6">
+        <li><a href="{{ url_for('index') }}" class="text-white hover:text-gray-300 font-medium transition duration-150 ease-in-out">Home</a></li>
+        
+        {% if session.get('user_type') == 'manager' %}
+            <li><a href="{{ url_for('dashboard') }}" class="text-white 
+                {% if request.endpoint == 'dashboard' %}border-b-2 border-white font-bold{% else %}hover:text-gray-300 font-medium{% endif %} 
+                transition duration-150 ease-in-out">Dashboard</a></li>
+            <li><a href="{{ url_for('inventory') }}" class="text-white 
+                {% if request.endpoint == 'inventory' %}border-b-2 border-white font-bold{% else %}hover:text-gray-300 font-medium{% endif %} 
+                transition duration-150 ease-in-out">Inventory</a></li>
+        {% endif %}
+        
+        {% if session.get('user_type') == 'customer' %}
+            <li><a href="{{ url_for('orders') }}" class="text-white 
+                {% if request.endpoint == 'orders' %}border-b-2 border-white font-bold{% else %}hover:text-gray-300 font-medium{% endif %} 
+                transition duration-150 ease-in-out">Orders</a></li>
+            <li><a href="{{ url_for('contact') }}" class="text-white 
+                {% if request.endpoint == 'contact' %}border-b-2 border-white font-bold{% else %}hover:text-gray-300 font-medium{% endif %} 
+                transition duration-150 ease-in-out">Contact</a></li>
+        {% endif %}
+
+        {% if session.get('logged_in') %}
+            <li><a href="{{ url_for('logout') }}" class="py-1 px-3 bg-red-600 text-white rounded hover:bg-red-700 transition duration-150 ease-in-out">Logout ({{ session.get('user_type') | capitalize }})</a></li>
+        {% else %}
+            <li><a href="{{ url_for('login') }}" class="py-1 px-3 bg-white text-blue-600 rounded font-semibold hover:bg-gray-200 transition duration-150 ease-in-out">Login</a></li>
+        {% endif %}
+    </ul>
+</nav>
         </div>
     </header>
 
