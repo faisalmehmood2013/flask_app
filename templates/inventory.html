@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Inventory - Nestlé Water Distribution</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
     <style>
         /* Define Main Color and Footer Style */
         :root {
@@ -25,38 +26,34 @@
         .inventory-table-container {
             border-radius: 0.5rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+            /* Ensure horizontal scrolling is possible on small screens */
+            overflow-x: auto; 
         }
         .inventory-table-container table {
-            min-width: 700px; /* Forces horizontal scroll on small screens */
-            width: 100%; /* Ensures table uses full width of its container */
+            min-width: 800px; /* Increased min-width for better display of columns */
+            width: 100%; 
+            border-collapse: collapse; /* Ensure clean borders */
         }
         .inventory-table-container thead {
             background-color: #f3f4f6;
         }
 
         /* Status Pills */
-        /* Adjusted font to font-semibold (600) instead of bold (700) */
         .status-low { background-color: #fee2e2; color: #b91c1c; font-weight: 600; border: 1px solid #fca5a5; }
         .status-ok { background-color: #d1fae5; color: #059669; font-weight: 600; border: 1px solid #6ee7b7; }
         
-        /* Ensure main content is centered but uses available space */
+        /* Ensure main content is centered and responsive */
         .main-content-container {
-            max-width: 90rem; /* Increased max width for a more "full" look */
+            max-width: 90rem;
             margin-left: auto;
             margin-right: auto;
             padding-left: 1rem;
             padding-right: 1rem;
         }
         @media (min-width: 640px) {
-            .main-content-container {
+             .main-content-container {
                 padding-left: 1.5rem;
                 padding-right: 1.5rem;
-            }
-        }
-        @media (min-width: 1024px) {
-            .main-content-container {
-                padding-left: 2rem;
-                padding-right: 2rem;
             }
         }
     </style>
@@ -72,8 +69,7 @@
                 </svg>
                 <div class="flex flex-col">
                     <span class="text-xl font-bold text-white">Nestlé Water Distribution</span>
-                    <span class="text-xs text-gray-200">Live Inventory Management</span>
-                </div>
+                    <span class="text-xs text-gray-200">Pure & Refreshing Quality</span> </div>
             </div>
 
             <nav class="hidden md:block">
@@ -133,7 +129,7 @@
             </div>
         {% endif %}
 
-        <div class="inventory-table-container overflow-x-auto">
+        <div class="inventory-table-container">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead>
                     <tr>
@@ -210,7 +206,7 @@
 
     // 1. Initialize the chat widget with Purchase Order Assistant settings
     createChat({
-        // NOTE: Please ensure this ngrok URL is currently active. If it expires, the chat will not work.
+        // NOTE: Please ensure this webhookUrl is active
         webhookUrl: 'https://faisalshah.duckdns.org/webhook/963ca52c-6184-46c5-8611-33d63c275c4d/chat',
         mode: 'window',
         chatInputKey: 'chatInput',
@@ -222,7 +218,6 @@
         initialMessages: [
             'Hi there! 👋',
             'I am your **Purchase Order Assistant** (PO Assistant).',
-            // 'How can I help you place your order with the supplier today?'
         ],
         i18n: {
             en: {
@@ -235,18 +230,6 @@
         },
         enableStreaming: false,
     });
-
-    // Function to programmatically open the chat (useful if you had an external button)
-    window.openChat = function() {
-        setTimeout(() => {
-            const toggleButton = document.querySelector('.n8n-chat-toggle');
-            if (toggleButton) {
-                toggleButton.click();
-            } else {
-                console.error("N8N Chat toggle button not found after delay.");
-            }
-        }, 3000); 
-    };
 </script>
     
 </body>
